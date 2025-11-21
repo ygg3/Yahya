@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yahya Profile</title>
+  
+  <!-- إضافة Font Awesome للرموز -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --accent: #b4aa9d;
+      --accent-light: #5c5a59;
+      --glass: rgba(255, 255, 255, 0.06);
+      --glass-2: rgba(255, 255, 255, 0.09);
+      --text-primary: #f3e9dc;
+      --text-secondary: rgba(243, 233, 220, 0.8);
+      --bg-dark: #000;
+      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+    
+    /* خلفية الفيديو */
+    .bg-video {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      filter: brightness(0.55) contrast(1.1);
+    }
+    
+    /* طبقة التعتيم */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(rgba(6, 6, 6, 0.35), rgba(6, 6, 6, 0.55));
+      z-index: 1;
+    }
+    
+    /* جسيمات متحركة */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    /* المحتوى الرئيسي */
+    .center {
+      position: relative;
+      z-index: 3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+    
+    /* بطاقة المحتوى */
+    .card {
+      width: min(760px, 92%);
+      text-align: center;
+      padding: 48px 28px;
+      border-radius: 22px;
+      background: var(--card-bg);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: var(--transition);
+    }
+    
+    .card:hover {
+      box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7);
+      transform: translateY(-5px);
+    }
+    
+    /* الصورة الشخصية */
+    .avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      margin: 0 auto 14px;
+      overflow: hidden;
+      border: 4px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+      transition: var(--transition);
+    }
+    
+    .avatar:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+    
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* تحسين وضوح الصورة */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: brightness(1.05) contrast(1.1);
+    }
+    
+    /* العنوان الرئيسي */
+    h1 {
+      margin: 8px 0;
+      font-size: 42px;
+      letter-spacing: 1px;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .subtitle {
+      opacity: 0.9;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+    
+    /* معلومات الموقع */
+    .meta {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 18px;
+    }
+    
+    .loc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* البطاقة الصغيرة */
+    .small-card {
+      margin: 18px auto;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+      width: 80%;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+      transition: var(--transition);
+    }
+    
+    .small-card:hover {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+    }
+    
+    .mini-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.03);
+    }
+    
+    .mini-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* تحسين وضوح الصورة المصغرة */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: brightness(1.05) contrast(1.1);
+    }
+    
+    /* روابط التواصل */
+    .socials {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 14px;
+    }
+    
+    .btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-3px);
+      color: var(--accent);
+    }
+    
+    /* شريط الملف الشخصي العلوي */
+    .top-right {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 4;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 8px 12px;
+      border-radius: 14px;
+      backdrop-filter: blur(6px);
+      transition: var(--transition);
+    }
+    
+    .top-right:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .top-right img {
+      /* تحسين وضوح صورة الملف الشخصي العلوي */
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: brightness(1.05) contrast(1.1);
+    }
+    
+    /* عناصر التحكم في الصوت - في أعلى اليسار */
+    .audio-controls {
+      position: fixed;
+      top: 18px;
+      left: 18px;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      transition: var(--transition);
+    }
+    
+    .audio-toggle {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(6px);
+    }
+    
+    .audio-toggle:hover {
+      background: rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+    
+    .volume-controls {
+      display: none;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 15px;
+      border-radius: 14px;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .audio-controls.expanded .volume-controls {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .volume-slider-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+    
+    .volume-icon {
+      color: var(--text-primary);
+      font-size: 18px;
+      transition: var(--transition);
+      min-width: 20px;
+    }
+    
+    .volume-slider {
+      -webkit-appearance: none;
+      width: 120px;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.2);
+      outline: none;
+      transition: var(--transition);
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      border: none;
+    }
+    
+    .volume-slider:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .volume-slider::-webkit-slider-thumb:hover {
+      background: var(--accent-light);
+      transform: scale(1.1);
+    }
+    
+    /* تأثيرات إضافية */
+    .glow {
+      text-shadow: 0 0 10px rgba(180, 170, 157, 0.3);
+    }
+    
+    /* التكيف مع الشاشات الصغيرة */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 34px;
+      }
+      
+      .small-card {
+        width: 90%;
+      }
+    }
+    
+    @media (max-width: 520px) {
+      h1 {
+        font-size: 30px;
+      }
+      
+      .avatar {
+        width: 96px;
+        height: 96px;
+      }
+      
+      .card {
+        padding: 26px;
+      }
+      
+      .small-card {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .socials {
+        gap: 12px;
+      }
+      
+      .btn {
+        width: 44px;
+        height: 44px;
+      }
+      
+      .audio-controls {
+        top: 15px;
+        left: 15px;
+      }
+      
+      .audio-toggle {
+        width: 45px;
+        height: 45px;
+      }
+      
+      .volume-slider {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" id="backgroundVideo" autoplay muted loop playsinline>
+    <source src="items/1120.mp4" type="video/mp4" />
+    <!-- صورة بديلة في حال عدم دعم الفيديو -->
+    <img src="fallback-bg.jpg" alt="خلفية" style="width:100%;height:100%;object-fit:cover">
+  </video>
+  
+  <div class="overlay"></div>
+  <canvas id="particles"></canvas>
+
+  <!-- شريط الملف الشخصي العلوي -->
+  <div class="top-right">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:36px;height:36px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,0.05)">
+        <img src="items/profile.jpg" style="width:100%;height:100%;object-fit:cover" alt="صورة الملف الشخصي"/>
+      </div>
+      <div style="text-align:right;line-height:1">
+        Yahya<br/>
+        <small style="opacity:0.6">my profile</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- عناصر التحكم في الصوت - في أعلى اليسار -->
+  <div class="audio-controls">
+    <button class="audio-toggle" id="audioToggle" title="كتم/إعادة الصوت">
+      <i class="fas fa-volume-up"></i>
+    </button>
+    <div class="volume-controls" id="volumeControls">
+      <div class="volume-slider-container">
+        <i class="volume-icon fas fa-volume-up" id="volumeIcon"></i>
+        <input type="range" min="0" max="1" step="0.01" value="0.5" class="volume-slider" id="volumeSlider">
+      </div>
+    </div>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <main class="center">
+    <section class="card">
+      <div class="avatar">
+        <img src="items/profile.jpg" alt="الصورة الشخصية">
+      </div>
+      
+      <h1 id="name" class="glow">Yahya</h1>
+      
+      <div class="subtitle">الرياضيات لم تقبل</div>
+      
+      <div class="meta">
+        <div class="loc">
+          <i class="fas fa-map-marker-alt"></i>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- البطاقة الصغيرة -->
+      <div class="small-card">
+        <div class="mini-avatar">
+          <img src="items/small.png" alt="صورة مصغرة"/>
+        </div>
+        <div class="text" style="flex:1;text-align:right">
+          <strong>Yahya</strong>
+          <span style="font-size:13px;opacity:0.75;display:block">السعي هو مفتاح كل شيء</span>
+        </div>
+      </div>
+
+      <!-- روابط التواصل الاجتماعي -->
+      <div class="socials">
+        <a class="btn" aria-label="discord" href="https://discord.gg/2AuG3sB9vY" title="Discord">
+          <i class="fab fa-discord"></i>
+        </a>
+        <a class="btn" aria-label="tiktok" href="https://www.tiktok.com/@ygg._3" title="TikTok">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a class="btn" aria-label="instagram" href="https://www.instagram.com/ygg._3/" title="Instagram">
+          <i class="fab fa-instagram"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // تهيئة الجسيمات المتحركة
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    
+    // ضبط حجم العنصر
+    function resize() {
+      w = canvas.width = innerWidth;
+      h = canvas.height = innerHeight;
+    }
+    
+    addEventListener('resize', resize);
+    resize();
+    
+    // دالة لإنشاء أرقام عشوائية
+    function rand(a, b) {
+      return Math.random() * (b - a) + a;
+    }
+    
+    // إنشاء الجسيمات
+    function create() {
+      for (let i = 0; i < 150; i++) {
+        particles.push({
+          x: rand(0, w),
+          y: rand(0, h),
+          vx: rand(-0.2, 0.2),
+          vy: rand(-0.1, 0.3),
+          s: rand(0.6, 2.2),
+          a: rand(0.2, 0.95)
+        });
+      }
+    }
+    
+    create();
+    
+    // رسم الجسيمات
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      
+      for (let p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        
+        // إعادة الجسيمات إلى الشاشة عند الخروج
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y > h) p.y = 0;
+        
+        ctx.beginPath();
+        ctx.globalAlpha = p.a;
+        ctx.fillStyle = 'rgba(255, 200, 120, 1)';
+        ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      
+      requestAnimationFrame(draw);
+    }
+    
+    draw();
+    
+    // إمكانية تغيير الاسم بالنقر المزدوج
+    document.getElementById('name').addEventListener('dblclick', e => {
+      const v = prompt('اكتب اسمك:', e.target.textContent);
+      if (v) e.target.textContent = v;
+    });
+    
+    // تأثيرات إضافية عند التمرير
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.5;
+      
+      document.querySelector('.card').style.transform = `translateY(${rate * 0.5}px)`;
+    });
+
+    // التحكم في الصوت
+    const video = document.getElementById('backgroundVideo');
+    const volumeSlider = document.getElementById('volumeSlider');
+    const audioToggle = document.getElementById('audioToggle');
+    const volumeIcon = document.getElementById('volumeIcon');
+    const audioControls = document.querySelector('.audio-controls');
+    const volumeControls = document.getElementById('volumeControls');
+
+    // تعيين مستوى الصوت الافتراضي
+    video.volume = 0.5;
+
+    // التحكم في مستوى الصوت
+    volumeSlider.addEventListener('input', function() {
+      video.volume = this.value;
+      updateVolumeIcon(this.value);
+      updateToggleIcon();
+    });
+
+    // تبديل كتم الصوت
+    audioToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      video.muted = !video.muted;
+      updateMuteState();
+    });
+
+    // فتح/إغلاق عناصر التحكم
+    audioToggle.addEventListener('dblclick', function(e) {
+      e.stopPropagation();
+      audioControls.classList.toggle('expanded');
+    });
+
+    // إغلاق عناصر التحكم عند النقر خارجها
+    document.addEventListener('click', function(e) {
+      if (!audioControls.contains(e.target)) {
+        audioControls.classList.remove('expanded');
+      }
+    });
+
+    // تحديث أيقونة مستوى الصوت
+    function updateVolumeIcon(volume) {
+      if (volume == 0) {
+        volumeIcon.className = 'volume-icon fas fa-volume-mute';
+      } else if (volume < 0.5) {
+        volumeIcon.className = 'volume-icon fas fa-volume-down';
+      } else {
+        volumeIcon.className = 'volume-icon fas fa-volume-up';
+      }
+    }
+
+    // تحديث أيقونة الزر الرئيسي
+    function updateToggleIcon() {
+      if (video.muted || video.volume == 0) {
+        audioToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else if (video.volume < 0.5) {
+        audioToggle.innerHTML = '<i class="fas fa-volume-down"></i>';
+      } else {
+        audioToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+    }
+
+    // تحديث حالة الكتم
+    function updateMuteState() {
+      if (video.muted) {
+        volumeSlider.value = 0;
+        updateVolumeIcon(0);
+      } else {
+        volumeSlider.value = video.volume;
+        updateVolumeIcon(video.volume);
+      }
+      updateToggleIcon();
+    }
+
+    // تهيئة الأيقونات
+    updateVolumeIcon(video.volume);
+    updateToggleIcon();
+  </script>
+</body>
+</html>
